@@ -12,18 +12,20 @@ if ( in.x ~= in.xd)
             case 270
                 out = -1;
             case 0 %non-det
-                if(rand(1)-0.5 > 0)
+                a = rand(1)-0.5 ;
+                if( a > 0)
                     out = 1;
                 else
                     out = -1;
                 end
         end
-    else ( in.x < in.xd )
+    elseif ( in.x < in.xd )
         switch in.theta
             case 90
                 out = -1;
             case 180 %non-det
-                if(rand(1)-0.5 > 0)
+                a = rand(1)-0.5 ;
+                if( a > 0)
                     out = 1;
                 else
                     out = -1;
@@ -41,7 +43,8 @@ else
     if ( in.y > in.yd )
         switch in.theta
             case 90 %non-det
-                if(rand(1)-0.5 > 0)
+                a = rand(1)-0.5 ;
+                if( a > 0)
                     out = 1;
                 else
                     out = -1;
@@ -53,14 +56,15 @@ else
             case 0
                 out = -1;
         end
-    else ( in.y < in.yd )
+    elseif ( in.y < in.yd )
         switch in.theta
             case 90
                 out = 0;
             case 180
                 out = -1;
             case 270 %non-det
-                if(rand(1)-0.5 > 0)
+                a = rand(1)-0.5 ;
+                if( a > 0)
                     out = 1;
                 else
                     out = -1;

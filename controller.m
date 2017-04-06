@@ -61,9 +61,11 @@ if ( length(in.m) ~= 0 )
                 other_plane(3).y = in.m.y;
         end
         
-        if ( in.x > in.m.x )
+        if ( in.xd > in.m.xd )
             my_prio = 1;
-        elseif ( in.y > in.m.y )
+        elseif ( in.xd < in.m.xd )
+            my_prio = 0;
+        elseif ( in.yd > in.m.yd )
             my_prio = 1;
         else
             my_prio = 0;
@@ -89,16 +91,16 @@ end
 if ( yield == 1 )
     test = [0 -1 1];
     for i = 1:3
-        if test(i) ~= out.val
-            my_next = next_point(in, out.val);
-            for j = 1:3
-                if (my_next.x == other_plane(j).x && my_next.y == other_plane(j).y)
-                    out.val = test(i);
-                    return;
-                end
+        
+        my_next = next_point(in, out.val);
+        for j = 1:3
+            if (my_next.x == other_plane(j).x && my_next.y == other_plane(j).y)
+                out.val = test(i);
+                return;
             end
         end
     end
+    
 end
 
 
