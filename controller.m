@@ -23,11 +23,68 @@ if (isempty(state))
     state.mode = 0; 
 end
 
-% Code to generate controller output
-if (state.mode == 0)
-    out.val = +1;
-    state.mode = 1;
-elseif (state.mode == 1)
-    out.val = 0;
-    state.mode = 0;
+if ( in.x ~= in.xd)
+
+	if ( in.x > in.xd )
+		switch in.theta
+			case 90
+				out.val = 1
+			case 180
+				out.val = 0
+			case 270
+				out.val = -1
+			case 0 %non-det
+				out.val = 1
+		end
+	else ( in.x < in.xd )
+		switch in.theta
+			case 90
+				out.val = -1
+			case 180 %non-det
+				out.val = -1
+			case 270
+				out.val = 1
+			case 0
+				out.val = 0
+		end
+
+
+	end
+
+else
+	if ( in.y > in.yd )
+		switch in.theta
+			case 90 %non-det
+				out.val = 1
+			case 180
+				out.val = 1
+			case 270
+				out.val = 0
+			case 0
+				out.val = -1
+		end
+	else ( in.y < in.yd )
+		switch in.theta
+			case 90
+				out.val = 0
+			case 180 
+				out.val = -1
+			case 270 %non-det
+				out.val = 1
+			case 0
+				out.val = 1
+		end
+
+
+	end
+
+
 end
+% Code to generate controller output
+%if (state.mode == 0)
+%    out.val = +1;
+%    state.mode = 1;
+%elseif (state.mode == 1)
+%    out.val = 0;
+%    state.mode = 0;
+%end
