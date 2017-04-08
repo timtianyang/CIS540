@@ -17,15 +17,11 @@ function [ out, state ] = controller( in, state )
 % state:
 %       any state used by the controller
 
-%logic flow:
-%Check for message
-%    check for possible collision range
-%        predict where the next plane could be at
-%        calculate my priority based on destination
-%run normal alg for the next step for myself
-%if possible to collide
-%    pick a new next step for myself if I have lower priority
 
+% Initialize state
+if (isempty(state))
+     state.prio = 0;
+ end
 yield = 0;
 possible_to_collide = 0;
 my_prio = 1;

@@ -11,6 +11,13 @@ if ( in.x ~= in.xd)
                 out = 0;
             case 270
                 out = -1;
+            case 360
+                a = rand(1)-0.5 ;
+                if( a > 0)
+                    out = 1;
+                else
+                    out = -1;
+                end
             case 0 %non-det
                 a = rand(1)-0.5 ;
                 if( a > 0)
@@ -33,6 +40,8 @@ if ( in.x ~= in.xd)
             case 270
                 out = 1;
             case 0
+                out = 0;
+            case 360
                 out = 0;
         end
         
