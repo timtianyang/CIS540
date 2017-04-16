@@ -27,11 +27,14 @@ function [ out, state ] = controller( in, state )
 %    pick a new next step for myself if I have lower priority
 
 yield = 0;
+
+global possible_to_collide;
 possible_to_collide = 0;
+
 my_prio = 1;
 if ( length(in.m) ~= 0 )
     if ( abs(in.x - in.m.x) <= 2 && abs(in.y - in.m.y) <= 2 )
-        fprintf('(%d,%d) (%d,%d)\n',in.x,in.y,in.m.x,in.m.y)
+        fprintf('(%d,%d) dir:%d (%d,%d) dir:%d\n',in.x,in.y,in.theta,in.m.x,in.m.y,in.m.theta)
         possible_to_collide = 1;
         switch in.m.theta
             case 0
