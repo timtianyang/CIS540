@@ -30,6 +30,10 @@ yield = 0;
 
 global possible_to_collide;
 possible_to_collide = 0;
+global invert_direction;
+invert_direction = 0;
+
+last_heading = in.theta;
 
 my_prio = 1;
 if ( length(in.m) ~= 0 )
@@ -77,7 +81,7 @@ if ( length(in.m) ~= 0 )
             my_prio = 1;
         else
             my_prio = 0;
-        end     
+        end
     end
 end
 
@@ -105,14 +109,23 @@ if ( yield == 1 )
         %of the other plane
         my_next = next_point(in, test(i));
         
-            if (my_next.x ~= other_plane(1).x || my_next.y ~= other_plane(1).y) ...\
+        if (my_next.x ~= other_plane(1).x || my_next.y ~= other_plane(1).y) ...\
                 && (my_next.x ~= other_plane(2).x || my_next.y ~= other_plane(2).y) ...\
                 && (my_next.x ~= other_plane(3).x || my_next.y ~= other_plane(3).y)
-                out.val = test(i);
-                fprintf('turning to %d\n',out.val);
-                return;
+            out.val = test(i);
+            
+            if last_heading + out.val * 90 == last_heading + 180
+                invert_direction = 1;
             end
-       
+            
+            fprintf('turning to %d\n',out.val);
+            return;
+        end
+        
     end
     
 end
+if last_heading + out.val * 90 == last_heading + 180
+    invert_direction = 1;
+end
+
