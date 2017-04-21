@@ -37,8 +37,8 @@ last_heading = in.theta;
 
 my_prio = 1;
 if ( length(in.m) ~= 0 )
-    if ( abs(in.x - in.m.x) <= 2 && abs(in.y - in.m.y) <= 2 )
-        fprintf('(%d,%d) dir:%d (%d,%d) dir:%d\n',in.x,in.y,in.theta,in.m.x,in.m.y,in.m.theta)
+    if ( abs(in.x - in.m.x) <= 2 && abs(in.y - in.m.y) <= 2 && ( in.x ~= in.xd || in.y ~= in.yd ) && ( in.m.x ~= in.m.xd  ||  in.m.y ~= in.m.yd ))
+        %fprintf('(%d,%d) dir:%d (%d,%d) dir:%d\n',in.x,in.y,in.theta,in.m.x,in.m.y,in.m.theta)
         possible_to_collide = 1;
         switch in.m.theta
             case 0
@@ -83,6 +83,7 @@ if ( length(in.m) ~= 0 )
             my_prio = 0;
         end
     end
+
 end
 
 
@@ -94,7 +95,7 @@ if ( my_prio == 0 && possible_to_collide == 1 )
     for i = 1:3
         if (my_next.x == other_plane(i).x && my_next.y == other_plane(i).y)
             yield = 1;
-            fprintf('my_next(%d,%d), the other plane could be at (%d,%d) for the next move, possible to collide so yield\n',my_next.x,my_next.y,other_plane(i).x,other_plane(i).y);
+            %fprintf('my_next(%d,%d), the other plane could be at (%d,%d) for the next move, possible to collide so yield\n',my_next.x,my_next.y,other_plane(i).x,other_plane(i).y);
             %possible to collide so need to yield and turn to another point
             break;
         end
@@ -117,8 +118,8 @@ if ( yield == 1 )
             if last_heading + out.val * 90 == last_heading + 180
                 invert_direction = 1;
             end
-            
-            fprintf('turning to %d\n',out.val);
+            possible_to_collide = 0;
+            %fprintf('turning to %d\n',out.val);
             return;
         end
         
@@ -128,4 +129,5 @@ end
 if last_heading + out.val * 90 == last_heading + 180
     invert_direction = 1;
 end
+possible_to_collide = 0;
 

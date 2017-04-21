@@ -42,8 +42,10 @@ for i=0:n
                         
                         % run the test for points where source points are
                         % distinct and destination points are outside each
-                        % others communication zone and 
+                        % others communication zone and
+                        %fprintf('s1(%d %d) t1(%d %d) s2(%d %d) t2(%d %d)\n',s1(1), s1(2),t1(1), t1(2) ,s2(1),s2(2),t2(1),t2(2));
                         if(testSimulation(s1, t1, s2, t2, timeout))
+                            
                             numPassed = numPassed + 1;
                         else
                             numFailed = numFailed + 1;

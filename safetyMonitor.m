@@ -11,22 +11,25 @@ function [ flag ] = safetyMonitor( in1, in2 )
 % flag: true if the safety is violated and false otherwise.
 global possible_to_collide;
 global invert_direction;
+
 flag_count = 0;
 
 flag = false;
 
-if ((~((in1.x == in1.xd && in1.y == in1.yd) || (in1.x == in1.xd && in1.y == in1.yd))) && in1.x == in2.x && in1.y == in2.y)
+if ((~((in1.x == in1.xd && in1.y == in1.yd) || (in2.x == in2.xd && in2.y == in2.yd))) && in1.x == in2.x && in1.y == in2.y)
     flag = true;
     fprintf('Colliding\n');
     flag_count = flag_count +1;
 elseif (((in1.x == in1.xd && in1.y == in1.yd) || (in2.x == in2.xd && in2.y == in2.yd)) && possible_to_collide == 1)
     flag = true;
     flag_count = flag_count +1;
+    if (in1.x == in1.xd && in1.y == in1.yd)
+        fprintf('plane1 landed\n');
+    end
+    if (in2.x == in2.xd && in2.y == in2.yd)
+        fprintf('plane1 landed\n');
+    end
     fprintf('possible_to_collide check failed');
-elseif (in1.xd == in2.xd && in1.yd == in2.yd)
-    flag = true;
-    flag_count = flag_count +1;
-    fprintf('they have the same destination, which is not allowed\n');
 end
 
 if invert_direction == 1
